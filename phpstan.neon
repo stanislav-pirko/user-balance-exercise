@@ -1,0 +1,19 @@
+includes:
+	- vendor/phpstan/phpstan-mockery/extension.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+	parallel:
+	    jobSize: 20
+	    maximumNumberOfProcesses: 32
+	    minimumNumberOfJobsPerProcess: 2
+	    processTimeout: 100.0
+	checkGenericClassInNonGenericObjectType: false
+	checkMissingIterableValueType: false
+	excludes_analyse:
+		- /app/src/Migrations/*
+	ignoreErrors:
+	    - '#Unsafe usage of new static\(\).#'
+	    - '#Method.*create.*ValueObject.*Mock\(\) should return.*Mockery\\MockInterface but returns Mockery\\MockInterface.#'
+	    - '#Parameter .* expects .*Mockery\\MockInterface.* given\.#'

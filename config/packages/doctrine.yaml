@@ -1,0 +1,22 @@
+doctrine:
+  dbal:
+    connections:
+      default:
+        driver: 'pdo_mysql'
+        charset:    UTF8
+        host:       '%db.host%'
+        port:       "%db.port%"
+        dbname:     '%db.dbname%'
+        user:       '%db.user%'
+        password:   '%db.password%'
+  orm:
+    auto_generate_proxy_classes: true
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    mappings:
+      User\Balance:
+        is_bundle: false
+        type: annotation
+        dir: '%kernel.project_dir%/src/Entity'
+        prefix: 'User\Balance\Entity'
+        alias: User\Balance

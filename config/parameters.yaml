@@ -1,0 +1,12 @@
+parameters:
+  app.env: '%env(APP_ENV)%'
+  app.secret: '%env(APP_SECRET)%'
+  app.service_name: '%env(CI_SERVICE_NAME)%'
+  app.version: '%env(APP_VERSION)%'
+
+  db.host:       '%env(MYSQL_HOST)%'
+  db.port:       "%env(MYSQL_PORT)%"
+  db.dbname:     '%env(MYSQL_DATABASE)%'
+  db.user:       '%env(MYSQL_USER)%'
+  db.password:   '%env(MYSQL_PASSWORD)%'
+
