@@ -2,6 +2,7 @@
 
 namespace User\Balance\Repository;
 
+use Doctrine\ORM\Query;
 use User\Balance\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,36 @@ class UserRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    /**
+     * Fetch all users from database and return array.
+     *
+     * @return mixed[]
+     */
+    public function getUsers(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select()
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+    }
+
+    /**
+     * Find and return user by user id and return in array.
+     *
+     * @param int $userId
+     *
+     * @return mixed[]
+     */
+    public function getUser(int $userId): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select()
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $userId)
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 
     // /**

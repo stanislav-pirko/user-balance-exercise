@@ -19,11 +19,11 @@ User detail page.
 
 Increase user balance.
 
-`'http://localhost/balance/1/increase/5.34'`
+`curl --location --request PUT 'localhost/balance/1/increase' --form 'value="1.5"`
 
 Decrease user balance.
 
-`'http://localhost/balance/1/decrease/1.13'`
+`curl --location --request PUT 'localhost/balance/1/decrease' --form 'value="1.5"'`
 
 ## Project Setup
 
@@ -84,3 +84,4 @@ Watch containers logs
 
 `make logs`
 
+docker-compose run mysql mysql --host=mysql --port=3306 --protocol=tcp -u root -pmysql_pass < ./.docker/mysql/test_dump.sql
