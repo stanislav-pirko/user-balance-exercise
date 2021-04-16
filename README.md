@@ -1,6 +1,5 @@
  UserBalance service
 ============
- Backend RPC service. Part of the microservice core that contains business logic.
 
 ## Stack
 
