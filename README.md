@@ -1,6 +1,16 @@
  UserBalance service
 ============
 
+## Task
+
+Suggest a more optimal logic to process the user's balance to avoid deadlocks and incorrect accounting of the balance.
+Extend the application with a service with methods for:
+* Getting the current balance of the user.
+* Increase the user's balance.
+* Decrease the user's balance.
+
+The final goal is a clean problem field solution.
+
 ## Stack
 
 - PHP 8.0
