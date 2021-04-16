@@ -14,7 +14,7 @@ List of all users.
 
 User detail page.
 
-`'http://localhost:9501/user/1'`
+`'http://localhost/user/1'`
 
 Increase user balance.
 
