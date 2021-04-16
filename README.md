@@ -36,6 +36,8 @@ Decrease user balance.
 
 ## Project Setup
 
+Example of test data you can find in file .docker/mysql/test_dump.sql.
+
 Up new environment:
 
 `make install`
