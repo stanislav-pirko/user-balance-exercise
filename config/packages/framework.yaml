@@ -17,4 +17,5 @@ framework:
         log: true
 
 maker:
-  root_namespace: User\Balancephp bin/console doctrine:mapping:import "User\Balance\Entity" annotation --path=src
+  root_namespace: User\Balance
+  #php bin/console doctrine:mapping:import "User\Balance\Entity" annotation --path=src

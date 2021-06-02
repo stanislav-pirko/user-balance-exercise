@@ -3,6 +3,7 @@
 namespace User\Balance\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * User
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="User\Balance\Repository\UserRepository")
  */
-class User
-{
+class User {
+
     /**
      * @var int
      *
@@ -49,12 +50,6 @@ class User
      */
     private $address;
 
-    /**
-     * @var float|null
-     *
-     * @ORM\Column(name="balance", type="float", precision=11, scale=2, nullable=true, options={"default"="0.00"})
-     */
-    private $balance = 0.00;
 
     /**
      * @var bool|null
@@ -77,119 +72,115 @@ class User
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
-    public function getId(): ?int
-    {
+    /**
+     * @ORM\OneToOne(targetEntity=TotalBalance::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $totalBalance;
+
+    public function __construct(string $name, string $email, string $address) {
+        $this->name = $name;
+        $this->email = $email;
+        $this->address = $address;
+        $this->totalBalance = new \User\Balance\Entity\TotalBalance($this);
+        $this->createdAt = new Datetime();
+        $this->updatedAt = new Datetime();
+    }
+
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
+    public function getName(): ?string {
         return $this->name;
     }
 
-    public function setName(?string $name): self
-    {
+    public function setName(?string $name): self {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function setEmail(?string $email): self
-    {
+    public function setEmail(?string $email): self {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getGender(): ?bool
-    {
+    public function getGender(): ?bool {
         return $this->gender;
     }
 
-    public function setGender(?bool $gender): self
-    {
+    public function setGender(?bool $gender): self {
         $this->gender = $gender;
 
         return $this;
     }
 
-    public function getAddress(): ?string
-    {
+    public function getAddress(): ?string {
         return $this->address;
     }
 
-    public function setAddress(?string $address): self
-    {
+    public function setAddress(?string $address): self {
         $this->address = $address;
 
         return $this;
     }
 
-    public function getBalance(): ?float
-    {
-        return $this->balance;
+    public function getTotalBalance_(): float {
+        return $this->total_balance;
+    }
+    
+    public function getTotalBalance(): TotalBalance {
+        return $this->totalBalance;
     }
 
-    public function setBalance(?float $balance): self
-    {
-        $this->balance = $balance;
 
-        return $this;
-    }
-
-    public function getStatus(): ?bool
-    {
+    public function getStatus(): ?bool {
         return $this->status;
     }
 
-    public function setStatus(?bool $status): self
-    {
+    public function setStatus(?bool $status): self {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
+    public function getCreatedAt(): ?\DateTimeInterface {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
-    {
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
+    public function getUpdatedAt(): ?\DateTimeInterface {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function decreaseBalance(float $decrease): bool
+
+
+    public function setTotalBalance(TotalBalance $totalBalance): self
     {
-        if ($this->balance < $decrease) {
-            return false;
+        // set the owning side of the relation if necessary
+        if ($totalBalance->getUserId() !== $this) {
+            $totalBalance->setUserId($this);
         }
-        $this->balance = $this->balance - $decrease;
 
-        return true;
+        $this->totalBalance = $totalBalance;
+
+        return $this;
     }
 
-    public function increaseBalance(float $increase): void
-    {
-        $this->balance = $this->balance + $increase;
-    }
 }
